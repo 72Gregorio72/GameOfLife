@@ -1,6 +1,5 @@
-# Conway's Life - Balatro Edition
 
-A roguelike twist on Conway's Game of Life with risk/reward mechanics inspired by Balatro.
+A roguelike twist on Conway's Game of Life with risk/reward mechanics.
 
 ## Project Structure
 
