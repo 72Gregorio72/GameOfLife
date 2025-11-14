@@ -36,6 +36,19 @@ float getProbabilitaMorte(int tipo) {
 	}
 }
 
+float getProbabilitaFatica(int generazioniConsecutive, int blindCorrente) {
+	int ante = (blindCorrente / 3) + 1;
+	
+	float moltiplicatoreFatica = 0.05f + (ante - 1) * 0.01f;
+	
+	float maxFatica = 0.80f;
+	if (ante >= 5) maxFatica = 0.90f;
+	else if (ante >= 3) maxFatica = 0.85f;
+	
+	float fatica = generazioniConsecutive * moltiplicatoreFatica;
+	return std::min(fatica, maxFatica);
+}
+
 int getValoreCella(int tipo) {
 	switch(tipo) {
 		case NORMALE: return 1;
@@ -56,10 +69,11 @@ sf::Color getColoreCella(int tipo) {
 	}
 }
 
-void revive(Life *life, std::vector<std::vector<int>>& tipoCella, int& denaro) {
+void revive(Life *life, std::vector<std::vector<int>>& tipoCella, int& denaro, int blindCorrente) {
 	update_map(life);
 	std::vector<std::vector<bool>> nuovaGriglia(RIGHE, std::vector<bool>(COLONNE, false));
 	std::vector<std::vector<int>> nuovoTipoCella(RIGHE, std::vector<int>(COLONNE, 0));
+	std::vector<std::vector<int>> nuoveGenerazioniConsecutive(RIGHE, std::vector<int>(COLONNE, 0));
 	
 	std::uniform_real_distribution<> dis(0.0, 1.0);
 	
@@ -67,17 +81,23 @@ void revive(Life *life, std::vector<std::vector<int>>& tipoCella, int& denaro) {
 		for (int c = 0; c < COLONNE; ++c) {
 			int viciniVivi = contaViciniVivi(r, c);
 			bool sopravvive = false;
-			int tipoOrigine = -1;  // Per tracciare da quale cella viene generata
+			int tipoOrigine = -1;
 			
 			if (griglia[r][c]) {
 				// Cella viva
 				if (viciniVivi == 2 || viciniVivi == 3) {
-					// Controlla morte casuale basata sul tipo
-					float prob = getProbabilitaMorte(tipoCella[r][c]);
-					if (dis(gen) >= prob) {
+					// Calcola probabilità di morte combinata: tipo + fatica
+					float probTipo = getProbabilitaMorte(tipoCella[r][c]);
+					float probFatica = getProbabilitaFatica(generazioniConsecutive[r][c], blindCorrente);
+					float probTotale = std::min(probTipo + probFatica, 0.95f);  // Max 95%
+					
+					if (dis(gen) >= probTotale) {
 						sopravvive = true;
-						tipoOrigine = tipoCella[r][c];  // Mantiene il suo tipo
+						tipoOrigine = tipoCella[r][c];
+						// Incrementa le generazioni consecutive
+						nuoveGenerazioniConsecutive[r][c] = generazioniConsecutive[r][c] + 1;
 					}
+					// Se muore, generazioniConsecutive rimane 0
 				}
 			} else {
 				// Cella morta
@@ -107,6 +127,8 @@ void revive(Life *life, std::vector<std::vector<int>>& tipoCella, int& denaro) {
 						}
 					}
 					tipoOrigine = tipoMax;
+					// Nuova cella parte da 0 generazioni consecutive
+					nuoveGenerazioniConsecutive[r][c] = 0;
 				}
 			}
 			
@@ -119,6 +141,7 @@ void revive(Life *life, std::vector<std::vector<int>>& tipoCella, int& denaro) {
 	
 	griglia = nuovaGriglia;
 	tipoCella = nuovoTipoCella;
+	generazioniConsecutive = nuoveGenerazioniConsecutive;
 	
 	// Conta il denaro solo per le celle VIVE dopo l'aggiornamento
 	for (int r = 0; r < RIGHE; ++r) {

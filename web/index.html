@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conway's Life - Balatro Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="ui-panel">
+            <div class="ui-row">
+                <div class="money-display">
+                    <div class="coin"></div>
+                    <span id="money-text">$10</span>
+                </div>
+                <div class="blind-display">
+                    <span id="blind-name">Small Blind</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                    <span id="progress-text">0/5</span>
+                </div>
+                <div class="reward-display">
+                    <span id="reward-text">Prize: $50</span>
+                </div>
+                <div class="cells-display">
+                    <span id="cells-text">Cells: 15</span>
+                </div>
+            </div>
+            <div class="ui-row">
+                <div class="cell-types">
+                    <div class="cell-type-box" data-type="0">
+                        <div class="type-name">Normal</div>
+                        <div class="type-stats">$1 | 0%</div>
+                    </div>
+                    <div class="cell-type-box" data-type="1">
+                        <div class="type-name">Risky</div>
+                        <div class="type-stats">$3 | 10%</div>
+                    </div>
+                    <div class="cell-type-box" data-type="2">
+                        <div class="type-name">Very Risky</div>
+                        <div class="type-stats">$8 | 30%</div>
+                    </div>
+                    <div class="cell-type-box" data-type="3">
+                        <div class="type-name">Super Risky</div>
+                        <div class="type-stats">$20 | 50%</div>
+                    </div>
+                </div>
+                <div class="status-display">
+                    <div class="status-indicator" id="status-indicator"></div>
+                    <span id="status-text">Setup</span>
+                </div>
+                <div class="victory-message" id="victory-message">
+                    BLIND DEFEATED! Press N for next or C to retry
+                </div>
+            </div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="controls-hint">
+            Controls: Space=Play/Pause | Click=Place Cell | E=Erase Mode | C=Clear | R=Reset View | 1-4=Cell Type | N=Next Blind
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

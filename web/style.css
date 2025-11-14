@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #14141a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e23;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+#ui-panel {
+    background-color: #1e1e23;
+    padding: 10px;
+    border-bottom: 2px solid #ffd700;
+}
+
+.ui-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.ui-row:last-child {
+    margin-bottom: 0;
+}
+
+.money-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.coin {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #ffd700;
+}
+
+#money-text {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.blind-display {
+    background-color: #64329e;
+    padding: 8px 15px;
+    border-radius: 4px;
+    min-width: 150px;
+    text-align: center;
+}
+
+#blind-name {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.progress-container {
+    position: relative;
+    width: 200px;
+    height: 24px;
+    background-color: #333;
+    border: 1px solid #666;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #00ff96;
+    transition: width 0.3s ease;
+}
+
+#progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.reward-display {
+    color: #ffd700;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cells-display {
+    color: white;
+    font-size: 14px;
+}
+
+.cell-types {
+    display: flex;
+    gap: 10px;
+}
+
+.cell-type-box {
+    width: 90px;
+    height: 50px;
+    background-color: #323232;
+    border: 1px solid white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.cell-type-box:hover {
+    transform: scale(1.05);
+}
+
+.cell-type-box.selected {
+    border: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.cell-type-box[data-type="0"].selected {
+    background-color: #00ff96;
+}
+
+.cell-type-box[data-type="1"].selected {
+    background-color: #ffc800;
+}
+
+.cell-type-box[data-type="2"].selected {
+    background-color: #ff6400;
+}
+
+.cell-type-box[data-type="3"].selected {
+    background-color: #ff0064;
+}
+
+.type-name {
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.cell-type-box.selected .type-name {
+    color: black;
+}
+
+.type-stats {
+    font-size: 9px;
+    color: #ccc;
+    margin-top: 2px;
+}
+
+.cell-type-box.selected .type-stats {
+    color: black;
+}
+
+.status-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ff6464;
+}
+
+.status-indicator.running {
+    background-color: #00ff00;
+}
+
+.status-indicator.paused {
+    background-color: #ff6464;
+}
+
+#status-text {
+    color: white;
+    font-size: 12px;
+}
+
+.victory-message {
+    color: #00ff00;
+    font-size: 16px;
+    font-weight: bold;
+    display: none;
+    margin-left: auto;
+}
+
+.victory-message.show {
+    display: block;
+}
+
+#game-canvas {
+    background-color: #14141a;
+    cursor: crosshair;
+    display: block;
+}
+
+#controls-hint {
+    background-color: #1e1e23;
+    color: #888;
+    padding: 8px;
+    text-align: center;
+    font-size: 11px;
+    border-top: 1px solid #333;
+}
