@@ -1,0 +1,375 @@
+# Suppression file per errori di Valgrind non relativi al codice utente
+# Uso: valgrind --suppressions=valgrind.supp ./gameoflife
+
+# Errori in libdxcore (DirectX Core WSL)
+{
+   libdxcore_cond
+   Memcheck:Cond
+   obj:*/libdxcore.so
+}
+
+{
+   libdxcore_value4
+   Memcheck:Value4
+   obj:*/libdxcore.so
+}
+
+{
+   libdxcore_value8
+   Memcheck:Value8
+   obj:*/libdxcore.so
+}
+
+{
+   libdxcore_param
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   fun:D3DKMTQueryAdapterInfo
+}
+
+# Errori in libGLdispatch
+{
+   gldispatch_leak
+   Memcheck:Leak
+   ...
+   obj:*/libGLdispatch.so*
+}
+
+# Errori "possibly lost" generici
+{
+   possibly_lost_malloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   ...
+}
+
+{
+   possibly_lost_calloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   ...
+}
+
+# Errori in libigc (Intel Graphics Compiler)
+{
+   libigc_leak
+   Memcheck:Leak
+   ...
+   obj:*/libigc.so
+}
+
+{
+   libigc_posix_memalign
+   Memcheck:Leak
+   fun:posix_memalign
+   obj:*/libigc.so
+}
+
+{
+   libigc_new
+   Memcheck:Leak
+   fun:_Znwm
+   obj:*/libigc.so
+}
+
+{
+   libigc_aligned_alloc
+   Memcheck:Leak
+   fun:aligned_alloc
+   ...
+}
+
+# Errori di memmove in vgpreload
+{
+   memmove_read
+   Memcheck:Addr8
+   fun:memmove
+   obj:*/libgallium*.so
+}
+
+# Errori dl_find_object
+{
+   dl_find_object_leak
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   fun:_dl_find_object_update
+   ...
+}
+
+# Errori nei driver grafici Intel WSL
+{
+   intel_driver_wsl_1
+   Memcheck:Addr1
+   obj:*/libigd12um64xel.so
+}
+
+{
+   intel_driver_wsl_2
+   Memcheck:Addr2
+   obj:*/libigd12um64xel.so
+}
+
+{
+   intel_driver_wsl_4
+   Memcheck:Addr4
+   obj:*/libigd12um64xel.so
+}
+
+{
+   intel_driver_wsl_8
+   Memcheck:Addr8
+   obj:*/libigd12um64xel.so
+}
+
+{
+   intel_driver_wsl_value
+   Memcheck:Value4
+   obj:*/libigd12um64xel.so
+}
+
+{
+   intel_driver_wsl_value8
+   Memcheck:Value8
+   obj:*/libigd12um64xel.so
+}
+
+{
+   intel_driver_wsl_cond
+   Memcheck:Cond
+   obj:*/libigd12um64xel.so
+}
+
+# Errori in D3D12 Core
+{
+   d3d12_core_1
+   Memcheck:Addr1
+   obj:*/libd3d12core.so
+}
+
+{
+   d3d12_core_2
+   Memcheck:Addr2
+   obj:*/libd3d12core.so
+}
+
+{
+   d3d12_core_4
+   Memcheck:Addr4
+   obj:*/libd3d12core.so
+}
+
+{
+   d3d12_core_8
+   Memcheck:Addr8
+   obj:*/libd3d12core.so
+}
+
+{
+   d3d12_core_value
+   Memcheck:Value4
+   obj:*/libd3d12core.so
+}
+
+{
+   d3d12_core_value8
+   Memcheck:Value8
+   obj:*/libd3d12core.so
+}
+
+{
+   d3d12_core_cond
+   Memcheck:Cond
+   obj:*/libd3d12core.so
+}
+
+# Errori in Gallium (driver Mesa)
+{
+   gallium_1
+   Memcheck:Addr1
+   obj:*/libgallium*.so
+}
+
+{
+   gallium_2
+   Memcheck:Addr2
+   obj:*/libgallium*.so
+}
+
+{
+   gallium_4
+   Memcheck:Addr4
+   obj:*/libgallium*.so
+}
+
+{
+   gallium_8
+   Memcheck:Addr8
+   obj:*/libgallium*.so
+}
+
+{
+   gallium_value
+   Memcheck:Value4
+   obj:*/libgallium*.so
+}
+
+{
+   gallium_value8
+   Memcheck:Value8
+   obj:*/libgallium*.so
+}
+
+{
+   gallium_cond
+   Memcheck:Cond
+   obj:*/libgallium*.so
+}
+
+# Errori in libGLX_mesa
+{
+   glx_mesa_1
+   Memcheck:Addr1
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   glx_mesa_2
+   Memcheck:Addr2
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   glx_mesa_4
+   Memcheck:Addr4
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   glx_mesa_8
+   Memcheck:Addr8
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   glx_mesa_value
+   Memcheck:Value4
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   glx_mesa_value8
+   Memcheck:Value8
+   obj:*/libGLX_mesa.so*
+}
+
+{
+   glx_mesa_cond
+   Memcheck:Cond
+   obj:*/libGLX_mesa.so*
+}
+
+# Errori generici SFML
+{
+   sfml_window_leak
+   Memcheck:Leak
+   ...
+   obj:*/libsfml-window.so*
+}
+
+{
+   sfml_graphics_leak
+   Memcheck:Leak
+   ...
+   obj:*/libsfml-graphics.so*
+}
+
+{
+   sfml_system_leak
+   Memcheck:Leak
+   ...
+   obj:*/libsfml-system.so*
+}
+
+# Errori in libGL
+{
+   libgl_errors_1
+   Memcheck:Addr1
+   obj:*/libGL.so*
+}
+
+{
+   libgl_errors_2
+   Memcheck:Addr2
+   obj:*/libGL.so*
+}
+
+{
+   libgl_errors_4
+   Memcheck:Addr4
+   obj:*/libGL.so*
+}
+
+{
+   libgl_errors_8
+   Memcheck:Addr8
+   obj:*/libGL.so*
+}
+
+{
+   libgl_value4
+   Memcheck:Value4
+   obj:*/libGL.so*
+}
+
+{
+   libgl_value8
+   Memcheck:Value8
+   obj:*/libGL.so*
+}
+
+{
+   libgl_cond
+   Memcheck:Cond
+   obj:*/libGL.so*
+}
+
+# Errori in libdrm
+{
+   libdrm_errors_1
+   Memcheck:Addr1
+   obj:*/libdrm*.so*
+}
+
+{
+   libdrm_errors_2
+   Memcheck:Addr2
+   obj:*/libdrm*.so*
+}
+
+{
+   libdrm_errors_4
+   Memcheck:Addr4
+   obj:*/libdrm*.so*
+}
+
+{
+   libdrm_errors_8
+   Memcheck:Addr8
+   obj:*/libdrm*.so*
+}
+
+{
+   libdrm_value4
+   Memcheck:Value4
+   obj:*/libdrm*.so*
+}
+
+{
+   libdrm_value8
+   Memcheck:Value8
+   obj:*/libdrm*.so*
+}
